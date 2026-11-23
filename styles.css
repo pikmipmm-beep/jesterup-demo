@@ -27,6 +27,8 @@
 
 html {
   min-width: 320px;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
   scroll-behavior: smooth;
   scrollbar-color: #4d5279 var(--ink);
   scrollbar-width: thin;
@@ -34,6 +36,7 @@ html {
 
 body {
   min-width: 320px;
+  overflow-x: clip;
   min-height: 100vh;
   margin: 0;
   background:
@@ -1238,8 +1241,8 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
     left: 10px;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 4px;
-    padding: 6px;
+    gap: 2px;
+    padding: 5px;
     border: 1px solid #4a5077;
     border-radius: 15px;
     background: rgba(30, 35, 59, .97);
@@ -1247,20 +1250,24 @@ button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible
   }
   .bottom-nav__item {
     display: flex;
+    min-width: 0;
     min-height: 47px;
+    padding: 3px 1px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
+    gap: 2px;
+    overflow: hidden;
+    white-space: nowrap;
     border: 0;
     border-radius: 11px;
     color: #b9bfdc;
     background: transparent;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     cursor: pointer;
   }
-  .bottom-nav__item svg { width: 18px; height: 18px; }
+  .bottom-nav__item svg { width: 17px; height: 17px; flex: 0 0 auto; }
   .bottom-nav__item.is-active { color: #fff; background: #514ab2; }
   .toast { right: 13px; bottom: 75px; left: 13px; max-width: none; font-size: 14px; }
   .bonus-feature { grid-template-columns: 1fr; }
