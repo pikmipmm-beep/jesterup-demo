@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#37301e">
+  <meta name="description" content="JesterUp — локальная демо-аркада с виртуальным балансом.">
+  <title>JesterUp — демо-аркада</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/jesterup-logo-muted.webp" fetchpriority="high">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="boot-screen" id="bootScreen" role="status" aria-label="JesterUp загружается"><img class="boot-screen__banner" src="assets/jesterup-logo-muted.webp" alt=""><div class="boot-track"><i></i></div></div>
+  <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-wallet" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M3 9h18M16 14h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-games" viewBox="0 0 24 24">
+      <path d="M6 8h12a3 3 0 0 1 2.8 2l1.1 5.3a2.3 2.3 0 0 1-3.8 2.2l-2.2-2H8.1l-2.2 2a2.3 2.3 0 0 1-3.8-2.2L3.2 10A3 3 0 0 1 6 8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+      <path d="M7 11v4m-2-2h4m7-1h.01M18 14h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-gift" viewBox="0 0 24 24">
+      <path d="M4 10h16v11H4zM3 7h18v4H3zM12 7v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M12 7c-4 0-6-1-6-3 0-1 .8-2 2-2 2 0 4 5 4 5Zm0 0c4 0 6-1 6-3 0-1-.8-2-2-2-2 0-4 5-4 5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M4 21c.4-4.1 3.2-6.4 8-6.4s7.6 2.3 8 6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24">
+      <path d="M4 8V3m0 5h5M5 8a8 8 0 1 1-1 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24">
+      <path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M12 11v5m0-8h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-sound-on" viewBox="0 0 24 24">
+      <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/>
+      <path d="M16 9a5 5 0 0 1 0 6M19.364 18.364a9 9 0 0 0 0-12.728"/>
+    </symbol>
+    <symbol id="icon-sound-off" viewBox="0 0 24 24">
+      <path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z"/>
+      <path d="m16.5 14.5 5-5m-5 0 5 5"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24">
+      <path d="M8 5.5c0-1.1 1.2-1.8 2.2-1.2l9.5 5.7a2.3 2.3 0 0 1 0 4l-9.5 5.7A1.5 1.5 0 0 1 8 18.5z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-stop" viewBox="0 0 24 24">
+      <rect x="5" y="5" width="14" height="14" rx="2.5" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-gem" viewBox="0 0 48 48">
+      <path d="m10 13 7-8h14l7 8-14 30L10 13Z" fill="currentColor"/>
+      <path d="m10 13 14 4 14-4M17 5l7 12 7-12M24 17v26" fill="none" stroke="#fff" stroke-opacity=".68" stroke-width="1.7" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-bomb" viewBox="0 0 48 48">
+      <circle cx="24" cy="27" r="15" fill="currentColor"/>
+      <path d="m19 12 4-6 8 2 2 7M30 7l4-3" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="m17 24 3 3m11-5 2 2" stroke="#fff" stroke-opacity=".65" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#games" data-nav="games" aria-label="JesterUp — игры">
+        <img class="brand-logo" src="assets/jesterup-logo-muted.webp" alt="JesterUp">
+      </a>
+
+      <nav class="top-nav" aria-label="Основная навигация">
+        <button class="nav-link is-active" type="button" data-nav="games">Игры</button>
+        <button class="nav-link" type="button" data-nav="cases">Кейсы</button>
+        <button class="nav-link" type="button" data-nav="bonuses">Бонусы</button>
+        <button class="nav-link" type="button" data-nav="profile">Профиль</button>
+      </nav>
+
+      <div class="top-actions">
+        <div class="wallet-pill" aria-label="Виртуальный баланс">
+          <svg class="wallet-icon" viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-wallet"/></svg>
+          <div class="wallet-copy">
+            <span class="wallet-caption">ВИРТУАЛЬНЫЙ БАЛАНС</span>
+            <strong id="balanceValue">1 350 000 ₽</strong>
+          </div>
+          <label class="currency-select-wrap">
+            <span class="visually-hidden">Валюта отображения</span>
+            <select id="currencySelect" aria-label="Валюта баланса и ставок">
+              <option value="RUB">RUB</option>
+              <option value="USDT">USDT</option>
+              <option value="GRAM">GRAM</option>
+            </select>
+          </label>
+        </div>
+        <span class="demo-status"><i aria-hidden="true"></i> ДЕМО</span>
+        <button class="sound-toggle" id="soundToggle" type="button" aria-label="Выключить звуки" aria-pressed="true" title="Звуки включены">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-sound-on"/></svg><span class="visually-hidden">Звук вкл.</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="page-view is-active" id="view-games" data-view="games" aria-labelledby="pageTitle">
+        <div class="page-heading">
+          <div>
+            <h1 id="pageTitle">Игровой зал JesterUp</h1>
+            <p>Выбери игру или загляни в кейсы · только виртуальные ставки</p>
+          </div>
+          <div class="welcome-token">
+            <span class="welcome-token__mark"><img src="assets/jesterup-logo-muted.webp" alt=""></span>
+            <span>Стартовый баланс <strong>1 350 000 ₽</strong></span>
+          </div>
+        </div>
+
+        <section class="play-panel" id="playPanel" aria-label="Игровая сцена" hidden>
+          <div class="play-panel__head">
+            <div class="current-game-title">
+              <span class="game-spark" aria-hidden="true"></span>
+              <div>
+                <h2 id="gameTitle">Мины</h2>
+                <p id="gameSubtitle">Открывай кристаллы и забирай растущий множитель.</p>
+              </div>
+            </div>
+            <div class="round-badge"><span class="round-badge__dot"></span><span id="roundBadge">Раунд не начат</span></div>
+          </div>
+
+          <div class="play-layout">
+            <div class="board-column">
+              <div class="board-topline">
+                <p id="gameMessage" class="game-message" role="status" aria-live="polite">Выбери игру и начинай.</p>
+                <div class="multiplier-display" aria-live="polite">
+                  <span>МНОЖИТЕЛЬ</span>
+                  <strong id="multiplierValue">×1,00</strong>
+                </div>
+              </div>
+                <div class="game-board game-board--mines" id="gameBoard" aria-label="Игровое поле"></div>
+                <div class="plane-stats" id="planeStats" aria-live="polite" hidden>
+                  <div><span>Высота</span><strong id="planeHeight">0,0 м</strong></div>
+                  <div><span>Дистанция</span><strong id="planeDistance">0,0 м</strong></div>
+                  <div><span>Множитель</span><strong id="planeMultiplier">×1,0</strong></div>
+                </div>
+                <div class="plane-flight-strip" id="planeFlightStrip" hidden>
+                  <span class="plane-route-label">МАРШРУТ НАД МОРЕМ</span>
+                  <div class="plane-route-markers" aria-label="События маршрута"><span>+1</span><span>+2</span><span>×2</span><span>×100</span><span>БОМБА</span></div>
+                </div>
+              <div class="board-footline">
+                <span id="boardCaption">25 плиток · найди кристаллы</span>
+                <span class="board-seed">ЛОКАЛЬНЫЙ РАУНД</span>
+              </div>
+            </div>
+
+            <aside class="control-column" aria-label="Настройки ставки">
+              <div class="bet-heading">
+                <div>
+                  <h3>Твоя ставка</h3>
+                  <p>Баланс остаётся виртуальным</p>
+                </div>
+                <span class="stake-token" aria-hidden="true">J</span>
+              </div>
+
+              <div class="bet-stepper">
+                <button class="step-button" id="betDown" type="button" aria-label="Уменьшить ставку">−</button>
+                <label class="bet-input-wrap">
+                  <span class="visually-hidden">Размер виртуальной ставки</span>
+                  <input id="betInput" type="text" inputmode="decimal" autocomplete="off" value="500" aria-describedby="betHelp">
+                  <span id="betCurrency">₽</span>
+                </label>
+                <button class="step-button" id="betUp" type="button" aria-label="Увеличить ставку">+</button>
+              </div>
+              <div class="plane-bet-roller" id="planeBetRoller" hidden aria-label="Ставка самолёта">
+                <span>СТАВКА</span>
+                <div class="plane-bet-roller__stepper">
+                  <button class="step-button" type="button" data-plane-bet-step="-1" aria-label="Уменьшить ставку самолёта">−</button>
+                  <strong id="planeBetValue">500 ₽</strong>
+                  <button class="step-button" type="button" data-plane-bet-step="1" aria-label="Увеличить ставку самолёта">+</button>
+                </div>
+                <button class="plane-bet-roller__max" type="button" data-plane-bet-max>Макс.</button>
+              </div>
+              <p class="bet-help" id="betHelp">Мин. <span id="minBetValue">1 ₽</span> · макс. по балансу</p>
+
+              <div class="quick-bets" aria-label="Быстрая ставка">
+                <button type="button" data-bet-rub="100">100 ₽</button>
+                <button type="button" data-bet-rub="500" class="is-selected">500 ₽</button>
+                <button type="button" data-bet-rub="1000">1 000 ₽</button>
+                <button type="button" data-bet-max>Макс.</button>
+              </div>
+
+              <div class="game-options" id="gameOptions">
+                <div class="option-row" id="minesOptions">
+                  <div>
+                    <strong>Мины на поле</strong>
+                    <span>Выбери риск</span>
+                  </div>
+                  <div class="segmented" role="group" aria-label="Количество мин">
+                    <button type="button" data-mines="3" class="is-selected" aria-pressed="true">3</button>
+                    <button type="button" data-mines="5" aria-pressed="false">5</button>
+                    <button type="button" data-mines="8" aria-pressed="false">8</button>
+                  </div>
+                </div>
+                <div class="option-row option-row--hidden" id="rouletteOptions">
+                  <div>
+                    <strong>Ставка на цвет</strong>
+                    <span>Выплата ×2</span>
+                  </div>
+                  <div class="segmented segmented--colors" role="group" aria-label="Цвет рулетки">
+                    <button type="button" data-color="red" class="is-selected" aria-pressed="true">Красное</button>
+                    <button type="button" data-color="black" aria-pressed="false">Чёрное</button>
+                  </div>
+                </div>
+                <div class="option-row option-row--hidden" id="rocketOptions">
+                  <div>
+                    <strong>Ракета</strong>
+                    <span>Забери выигрыш до падения</span>
+                  </div>
+                  <span class="option-note">рост ×</span>
+                </div>
+                <div class="option-row option-row--hidden" id="plinkoOptions">
+                  <div>
+                    <strong>Плинко</strong>
+                    <span>Лунка определит выплату</span>
+                  </div>
+                  <span class="option-note">1–8×</span>
+                </div>
+              </div>
+
+              <div class="action-buttons">
+                <button class="button button--primary" id="primaryAction" type="button">Начать игру <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+                <button class="button button--secondary" id="cashoutButton" type="button" disabled>Забрать ×1,00</button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="games-shelf" aria-labelledby="gamesHeading">
+          <div class="section-heading">
+            <div>
+              <h2 id="gamesHeading">Выбери игру</h2>
+              <p>Все раунды проходят локально</p>
+            </div>
+            <span class="shelf-count">06 ИГР</span>
+          </div>
+
+          <div class="game-grid">
+            <button class="game-tile game-tile--featured" type="button" data-game="mines" aria-pressed="false">
+              <span class="tile-art tile-art--mines" aria-hidden="true">
+                <img class="tile-art__image" src="assets/game-mines.webp" alt="" loading="eager" fetchpriority="high">
+              </span>
+              <span class="tile-copy"><strong>Мины</strong><small>Ищи кристаллы · растущий множитель</small><span class="tile-link">Играть <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></span></span>
+            </button>
+
+            <button class="game-tile" type="button" data-game="upgrader" aria-pressed="false">
+              <span class="tile-art tile-art--upgrader" aria-hidden="true"><img class="tile-art__image" src="assets/game-upgrader.webp" alt="" loading="lazy"></span>
+              <span class="tile-copy"><strong>Апгрейдер</strong><small>Улучши предмет из инвентаря</small><span class="tile-link">Играть <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></span></span>
+            </button>
+
+            <button class="game-tile" type="button" data-game="rocket" aria-pressed="false">
+              <span class="tile-art tile-art--rocket" aria-hidden="true">
+                <img class="tile-art__image" src="assets/game-rocket.webp" alt="" loading="lazy">
+              </span>
+              <span class="tile-copy"><strong>Ракета</strong><small>Поймай момент для выхода</small><span class="tile-link">Играть <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></span></span>
+            </button>
+
+            <button class="game-tile" type="button" data-game="plane" aria-pressed="false">
+              <span class="tile-art tile-art--plane" aria-hidden="true"><img class="tile-art__image" src="assets/game-plane.webp" alt="" loading="lazy"></span>
+              <span class="tile-copy"><strong>Самолёт</strong><small>Полёт над морем, палубы и бонусы</small><span class="tile-link">Играть <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></span></span>
+            </button>
+
+            <button class="game-tile" type="button" data-game="roulette" aria-pressed="false">
+              <span class="tile-art tile-art--roulette" aria-hidden="true">
+                <img class="tile-art__image" src="assets/roulette-cover.webp" alt="" loading="lazy">
+              </span>
+              <span class="tile-copy"><strong>Рулетка</strong><small>Красное или чёрное · выплата ×2</small><span class="tile-link">Играть <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></span></span>
+            </button>
+
+            <button class="game-tile" type="button" data-game="plinko" aria-pressed="false">
+              <span class="tile-art tile-art--plinko" aria-hidden="true">
+                <img class="tile-art__image" src="assets/game-plinko.webp" alt="" loading="lazy">
+              </span>
+              <span class="tile-copy"><strong>Плинко</strong><small>Отпусти шар и смотри, где он окажется</small><span class="tile-link">Играть <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></span></span>
+            </button>
+          </div>
+        </section>
+
+        <section class="case-preview" aria-labelledby="casePreviewTitle">
+          <div class="case-preview__copy">
+            <h2 id="casePreviewTitle">Кейсы JesterUp</h2>
+            <p>CS2, подарки Telegram и коллекционные NFT.</p>
+            <button class="button button--secondary" type="button" data-nav="cases">Смотреть кейсы <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+          </div>
+          <div class="case-preview__art" aria-hidden="true">
+            <img src="assets/black-lotus.webp" alt="" loading="lazy">
+            <img src="assets/telegram-teddy.webp" alt="" loading="lazy">
+            <img src="assets/ion-gem.webp" alt="" loading="lazy">
+          </div>
+        </section>
+      </section>
+
+      <section class="page-view" id="view-cases" data-view="cases" aria-labelledby="casesTitle" hidden>
+        <div class="subpage-heading">
+          <div><h1 id="casesTitle">Кейсы и подарки</h1><p>CS2 skins · обычные Telegram-подарки и NFT-коллекции</p></div>
+          <span class="subpage-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-gift"/></svg></span>
+        </div>
+        <div class="case-snapshot-note"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-info"/></svg><span>Steam Market и Fragment · цены на 22.11.2026 · анимации Telegram: Gift Changes</span></div>
+        <div class="case-tabs" role="tablist" aria-label="Категории кейсов">
+          <button class="case-tab is-active" type="button" role="tab" id="caseTabCs2" aria-selected="true" aria-controls="caseGrid" data-case-category="cs2">CS2 кейсы</button>
+          <button class="case-tab" type="button" role="tab" id="caseTabGifts" aria-selected="false" aria-controls="caseGrid" data-case-category="gifts">Gift кейсы</button>
+        </div>
+        <div class="case-grid" id="caseGrid" role="tabpanel" aria-labelledby="caseTabCs2"></div>
+      </section>
+
+      <section class="page-view" id="view-bonuses" data-view="bonuses" aria-labelledby="bonusTitle" hidden>
+        <div class="subpage-heading">
+          <div><h1 id="bonusTitle">Бонусная комната</h1><p>Небольшой подарок для демо-сессии</p></div>
+          <span class="subpage-symbol"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-gift"/></svg></span>
+        </div>
+        <div class="bonus-feature">
+          <div class="bonus-art" aria-hidden="true">
+            <span class="bonus-orbit"></span>
+            <span class="bonus-box"><i></i><b></b><em></em></span>
+            <span class="bonus-star bonus-star--one">✦</span><span class="bonus-star bonus-star--two">✧</span>
+          </div>
+          <div class="bonus-copy">
+            <span class="bonus-label">ТОЛЬКО В ДЕМО</span>
+            <h2>+500 виртуальных ₽</h2>
+            <p>Раз в день можно добавить немного тестовых кредитов. Они остаются только в этом браузере и не имеют денежной стоимости.</p>
+            <button class="button button--primary" id="claimBonus" type="button">Забрать демо-бонус</button>
+            <span class="bonus-state" id="bonusState" role="status">Бонус доступен сегодня</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-view" id="view-profile" data-view="profile" aria-labelledby="profileTitle" hidden>
+        <div class="subpage-heading">
+          <div><h1 id="profileTitle">Профиль игрока</h1><p>Твоя локальная демо-сессия</p></div>
+          <span class="profile-avatar"><img src="assets/jesterup-logo-muted.webp" alt="Логотип JesterUp"></span>
+        </div>
+        <div class="profile-grid">
+          <section class="profile-balance">
+            <div class="profile-balance__top"><span>ТЕКУЩИЙ БАЛАНС</span><span class="demo-status"><i aria-hidden="true"></i> ДЕМО</span></div>
+            <strong id="profileBalance">1 350 000 ₽</strong>
+            <p id="profileCurrencyNote">Показывается в выбранной валюте</p>
+            <button class="button button--secondary" id="resetDemo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-reset"/></svg> Сбросить демо до 1 350 000 ₽</button>
+          </section>
+          <section class="session-stats" aria-label="Статистика сессии">
+            <div><span>Раундов</span><strong id="roundsPlayed">0</strong></div>
+            <div><span>Выигрышей</span><strong id="winsPlayed">0</strong></div>
+            <div><span>Итог сессии</span><strong id="sessionNet">0 ₽</strong></div>
+          </section>
+        </div>
+        <section class="inventory-section" aria-labelledby="inventoryHeading">
+          <div class="section-heading"><div><h2 id="inventoryHeading">Инвентарь</h2><p>Предметы для апгрейда или продажи</p></div><button class="button button--secondary" id="inventoryCases" type="button">К кейсам</button></div>
+          <div class="inventory-grid" id="profileInventory"><p class="empty-state">Пока пусто</p></div>
+        </section>
+        <section class="history-section">
+          <div class="section-heading"><div><h2>История сессии</h2><p>Последние действия только в этом браузере</p></div></div>
+          <div class="history-list" id="historyList">
+            <p class="empty-state">Здесь появятся результаты первых раундов.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Нижняя навигация">
+      <button class="bottom-nav__item is-active" type="button" data-nav="games" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-games"/></svg><span>Игры</span></button>
+      <button class="bottom-nav__item" type="button" data-nav="cases"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-gift"/></svg><span>Кейсы</span></button>
+      <button class="bottom-nav__item" type="button" data-nav="bonuses"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-gift"/></svg><span>Бонусы</span></button>
+      <button class="bottom-nav__item" type="button" data-nav="profile"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icon-user"/></svg><span>Профиль</span></button>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <dialog class="case-reveal" id="caseReveal" aria-labelledby="caseRevealTitle">
+    <button class="case-reveal__close" id="closeCaseReveal" type="button" aria-label="Закрыть кейс">×</button>
+    <div class="case-reveal__heading"><h2 id="caseRevealTitle">Кейс</h2><span id="caseRevealTicket">50 ₽</span></div>
+    <div class="case-quantity" role="group" aria-label="Количество кейсов">
+      <button type="button" data-case-count="1" class="is-selected" aria-pressed="true">×1</button>
+      <button type="button" data-case-count="2" aria-pressed="false">×2</button>
+      <button type="button" data-case-count="3" aria-pressed="false">×3</button>
+      <button type="button" data-case-count="4" aria-pressed="false">×4</button>
+      <button type="button" data-case-count="5" aria-pressed="false">×5</button>
+    </div>
+    <div class="case-reels" id="caseReels" aria-live="polite"></div>
+    <div class="case-roll-footer"><span id="caseRollCost">Открытие · 50 ₽</span><button class="button button--primary" id="caseSpinButton" type="button">Открыть</button></div>
+    <div class="case-roll-results" id="caseRollResults" aria-live="polite"></div>
+    <section class="case-loot-section" aria-labelledby="caseLootTitle">
+      <h3 id="caseLootTitle">Содержимое кейса</h3>
+      <div class="case-loot-grid" id="caseLootTable"></div>
+    </section>
+  </dialog>
+  <dialog class="upgrade-picker" id="upgradePicker" aria-labelledby="upgradePickerTitle">
+    <button class="case-reveal__close" id="closeUpgradePicker" type="button" aria-label="Закрыть инвентарь">×</button>
+    <h2 id="upgradePickerTitle">Инвентарь</h2>
+    <div class="case-tabs upgrade-picker__tabs" role="tablist" aria-label="Предметы">
+      <button class="case-tab is-active" type="button" data-upgrade-category="cs2" aria-selected="true">CS2 skins</button>
+      <button class="case-tab" type="button" data-upgrade-category="gifts" aria-selected="false">Gift</button>
+      <button class="case-tab" type="button" data-upgrade-category="balance" aria-selected="false">Деньги</button>
+    </div>
+    <div class="upgrade-cash-entry"><label for="upgradeCashAmount">Сумма виртуальной ставки</label><div><input id="upgradeCashAmount" type="text" inputmode="decimal" value="100"><span id="upgradeCashCurrency">₽</span><button type="button" id="upgradeCashAdd">В инвентарь</button></div></div>
+    <div class="upgrade-target-filters" id="upgradeTargetFilters" hidden><label>Цена от <input id="upgradePriceMin" type="text" inputmode="decimal" placeholder="0"></label><label>до <input id="upgradePriceMax" type="text" inputmode="decimal" placeholder="∞"></label><span id="upgradeFilterCurrency">₽</span><button type="button" id="upgradeApplyFilters">Показать</button></div>
+    <div class="upgrade-picker__grid" id="upgradePickerGrid"></div>
+  </dialog>
+  <dialog class="upgrade-result" id="upgradeResult" aria-labelledby="upgradeResultTitle">
+    <button class="case-reveal__close" id="closeUpgradeResult" type="button" aria-label="Закрыть результат">×</button>
+    <div class="upgrade-fireworks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <h2 id="upgradeResultTitle">Апгрейд успешен!</h2>
+    <div id="upgradeResultCard"></div>
+    <div class="upgrade-result__actions">
+      <button class="button button--primary" id="upgradeAgain" type="button">Апгрейдить снова</button>
+      <button class="button button--secondary" id="upgradeSell" type="button">Продать</button>
+      <button class="upgrade-keep" id="upgradeKeep" type="button">Сохранить в инвентаре</button>
+    </div>
+  </dialog>
+  <script src="https://telegram.org/js/telegram-web-app.js" defer></script>
+  <script src="assets/lottie.min.js" defer></script>
+  <script src="telegram-nft-data.js" defer></script>
+  <script src="catalog.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

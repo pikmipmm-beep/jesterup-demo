@@ -1,0 +1,9 @@
+{
+  "name": "jesterup-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Локальное демо казино JesterUp на виртуальном балансе",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

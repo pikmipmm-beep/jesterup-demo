@@ -1,0 +1,11 @@
+.impeccable/
+.impeccable.zip
+*.zip
+*.7z
+*.rar
+*.env
+*.env.*
+temp-*.html
+node_modules/
+.DS_Store
+Thumbs.db
